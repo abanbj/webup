@@ -6,8 +6,6 @@ import hashlib
 import sqlite3
 #Vi trenger også dato og klokkeslett
 import datetime
-#For å sjekke om databasefilen eksisterer
-from pathlib import Path
 #For å sjekke om fil eksisterer
 import os
 
