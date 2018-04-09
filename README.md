@@ -4,3 +4,6 @@ webup er en liten *utility* som skal hjelpe til med å finne ut om en websiden e
 oppdatert.
 
 Skrevet i Python.
+
+Et stort poeng med dette programmer er også å lære seg litt Python.Python er
+tydeligvis veldig **populært** og **moderne**.
