@@ -8,6 +8,9 @@ import sqlite3
 #Sites som skal fingerprintes. MÅ ha med http(s):// ellers klager python
 sites = ['http://www.mareano.no/nyheter/nyheter-2018', 'http://www.npd.no']
 
+#Åpne connection til sqlite3
+sqlite_connection = sqlite3.connect('site_fingerprints.db')
+
 for url in sites:
  #Åpne URL
  response = urllib.request.urlopen(url)
@@ -20,3 +23,8 @@ for url in sites:
  #Skriv ut checksumen
  print(m)
   
+#Commit alle endringer
+sqlite_connection.commit()
+
+#Lukk sqlite connection
+sqlite_connection.close()
