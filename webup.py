@@ -8,13 +8,19 @@ import sqlite3
 import datetime
 #For å sjekke om databasefilen eksisterer
 from pathlib import Path
-
+#For å sjekke om fil eksisterer
+import os
 
 #Sites som skal fingerprintes. MÅ ha med http(s):// ellers klager python
 sites = ['http://www.mareano.no/nyheter/nyheter-2018', 'http://www.npd.no']
 
 #Åpne connection til sqlite3.
 db_navn = "site_fingerprints.db"
+
+#Vi sletter databasefilen om den eksisterer
+if os.path.exists(db_navn):
+ os.remove(db_navn)
+
 sqlite_connection = sqlite3.connect(db_navn)
 
 dato_og_tid_naa = datetime.datetime.now()
@@ -22,8 +28,8 @@ dato_og_tid_naa = datetime.datetime.now()
 #Lag en curser slik at vi kan kjøre SQL-kommandoer
 c = sqlite_connection.cursor()
 
-#Kommenteres ut for nå. Her må vi sjekke om tabelle eksisterer fra før av!
-#c.execute('CREATE TABLE webside (date text, url text, hash text)')
+#Lag tabell
+c.execute('CREATE TABLE webside (date text, url text, hash text)')
 
 for url in sites:
  #Åpne URL
@@ -35,8 +41,8 @@ for url in sites:
  #Denne ser ut som noe slik: 18e8606918705524...
  m = hashlib.sha256(data).hexdigest()
  #Skriv ut dato og tid, url, og checksumen. Skriv også inn i databasen
- print(dato_og_tid_naa, url, m)
- c.execute("INSERT INTO webside VALUES ("dato_og_tid_naa","url","m")")
+ todo = [dato_og_tid_naa, url, m]
+ c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
 
 #Commit alle endringer til databasen
 sqlite_connection.commit()
