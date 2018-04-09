@@ -43,13 +43,17 @@ for url in sites:
  #Skriv ut dato og tid, url, og checksumen. Skriv også inn i databasen
  todo = [dato_og_tid_naa, url, m]
  c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
+ print("La inn hash fra ", url)
 
 #Commit alle endringer til databasen
 sqlite_connection.commit()
+
+print("\n\nLooper nå gjennom og skriver innholdet ut fra databasen for å teste:")
 
 for row in c.execute('SELECT * FROM webside'):
 	print(row)
 
 #Lukk sqlite connection
 sqlite_connection.close()
+
 #Vi kan komponere og sende epost direkte fra Python?!
