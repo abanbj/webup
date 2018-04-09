@@ -15,7 +15,7 @@ def hash(url_hash):
 	response = urllib.request.urlopen(url_hash)
 	data = response.read()
 	m = hashlib.sha256(data).hexdigest()
-	print(m)
+	return m
 
 #Sites som skal fingerprintes. MÅ ha med http(s):// ellers klager python
 sites = ['http://www.mareano.no/nyheter/nyheter-2018', 'http://www.npd.no']
@@ -38,16 +38,7 @@ c = sqlite_connection.cursor()
 c.execute('CREATE TABLE webside (date text, url text, hash text)')
 
 for url in sites:
- #Åpne URL
- response = urllib.request.urlopen(url)
- #Les inn innholdet fra URL inn i variabelen data
- data = response.read()      # a `bytes` object
- 
- #Beregn sha256 checksum
- #Denne ser ut som noe slik: 18e8606918705524...
- m = hashlib.sha256(data).hexdigest()
- #Skriv ut dato og tid, url, og checksumen. Skriv også inn i databasen
- todo = [dato_og_tid_naa, url, m]
+ todo = [dato_og_tid_naa, url, hash(url)]
  c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
  print("La inn hash fra ", url)
 
