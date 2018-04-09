@@ -11,6 +11,12 @@ from pathlib import Path
 #For å sjekke om fil eksisterer
 import os
 
+def hash(url_hash):
+	response = urllib.request.urlopen(url_hash)
+	data = response.read()
+	m = hashlib.sha256(data).hexdigest()
+	print(m)
+
 #Sites som skal fingerprintes. MÅ ha med http(s):// ellers klager python
 sites = ['http://www.mareano.no/nyheter/nyheter-2018', 'http://www.npd.no']
 
