@@ -17,6 +17,6 @@ Hash er nå kalkulert og lagt inn inn i databasen. Dersom hashen endres blir den
   * [sendemail](http://caspian.dotconf.net/menu/Software/SendEmail/)
     * Testet og funker
     * Last ned og untar, ferdig fil. Testet mned å kjøre kommandoen
-    `./sendEmail -t <min-mail> -f meg@linux -m "testmail"` som kom fint frem.
+    `./sendEmail -t <min-mail> -f meg@linux -m "testmail"` som kom fint frem. Prøv også `./sendEmail -t <min-mail> -f meg@linux -o message-file=t.txt` hvor innholdet av eposten ligger i t.txt som angitt.
   * mutt (vet for så vidt at denne fungerer).
   * Python sin innebygde måte å sende mail på?
