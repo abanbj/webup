@@ -19,4 +19,5 @@ Hash er nå kalkulert og lagt inn inn i databasen. Dersom hashen endres blir den
     * Last ned og untar, ferdig fil. Testet mned å kjøre kommandoen
     `./sendEmail -t <min-mail> -f meg@linux -m "testmail"` som kom fint frem. Prøv også `./sendEmail -t <min-mail> -f meg@linux -o message-file=t.txt` hvor innholdet av eposten ligger i t.txt som angitt.
   * mutt (vet for så vidt at denne fungerer).
-  * Python sin innebygde måte å sende mail på?
+  * Python sin innebygde måte å sende mail på
+    * Funker også. Se første og øverste eksempel på denne siden: https://docs.python.org/3.4/library/email-examples.html 
