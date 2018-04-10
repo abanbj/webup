@@ -22,16 +22,11 @@ sites = ['http://www.mareano.no/nyheter/nyheter-2018', 'http://www.npd.no']
 db_navn = "site_fingerprints.db"
 
 #Vi sletter databasefilen om den eksisterer
-if not os.path.exists(db_navn):
- sqlite_connection = sqlite3.connect(db_navn)
- c = sqlite_connection.cursor()
- c.execute('CREATE TABLE webside (date text, url text, hash text)')
-else:
- sqlite_connection = sqlite3.connect(db_navn)
- c = sqlite_connection.cursor()
+sqlite_connection = sqlite3.connect(db_navn)
+c = sqlite_connection.cursor()
+c.execute('CREATE TABLE IF NOT EXISTS webside (date text, url text, hash text)')
 
 #sqlite_connection = sqlite3.connect(db_navn)
-
 dato_og_tid_naa = datetime.datetime.now()
 
 #Lag en curser slik at vi kan kjøre SQL-kommandoer
