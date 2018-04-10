@@ -41,9 +41,20 @@ dato_og_tid_naa = datetime.datetime.now()
 #c.execute('CREATE TABLE webside (date text, url text, hash text)')
 
 for url in sites:
- todo = [dato_og_tid_naa, url, hash(url)]
- c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
- print("La inn hash fra ", url)
+ #Finn gammel hash til siden
+ print("Sjekker gammel hash for: ", url)
+ query_oldhash = "SELECT hash FROM webside WHERE url='" + url + "' LIMIT 1"
+ print("Old hash query er naa: ", query_oldhash)
+ old_hash = c.execute(query_oldhash).fetchall()
+
+ print("Gammel hash er ", old_hash[0][0])
+ #print("Her er old hash ")
+ #Dette skal skje om hashen er ULIK
+ if not (old_hash == hash(url)):
+
+  todo = [dato_og_tid_naa, url, hash(url)]
+  c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
+  print("La inn hash fra ", url)
 
 #Commit alle endringer til databasen
 sqlite_connection.commit()
