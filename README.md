@@ -15,5 +15,8 @@ Hash er nå kalkulert og lagt inn inn i databasen. Dersom hashen endres blir den
 * Lag en fin grafisk unidiff som viser hva som er endret?
 * Send epost! Alternativer er - og disse bør __alle__ testes!
   * [sendemail](http://caspian.dotconf.net/menu/Software/SendEmail/)
-  * mutt
+    * Testet og funker
+    * Last ned og untar, ferdig fil. Testet mned å kjøre kommandoen
+    `./sendEmail -t <min-mail> -f meg@linux -m "testmail"` som kom fint frem.
+  * mutt (vet for så vidt at denne fungerer).
   * Python sin innebygde måte å sende mail på?
