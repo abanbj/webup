@@ -65,7 +65,14 @@ for url in sites:
 #Commit alle endringer til databasen
 sqlite_connection.commit()
 
+sqlite_connection.close()
+
+##Testseksjon - skriptet er egentlig ferdig med for å teste har vi ting liggende her
+
 print("\n\nLooper nå gjennom og skriver innholdet ut fra databasen for å teste:")
+
+sqlite_connection = sqlite3.connect(db_navn)
+c = sqlite_connection.cursor()
 
 for row in c.execute('SELECT * FROM webside'):
 	print(row)
