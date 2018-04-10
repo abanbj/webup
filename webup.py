@@ -30,12 +30,6 @@ c.execute('CREATE TABLE IF NOT EXISTS webside (date text, url text, hash text)')
 #sqlite_connection = sqlite3.connect(db_navn)
 dato_og_tid_naa = datetime.datetime.now()
 
-#Lag en curser slik at vi kan kjøre SQL-kommandoer
-#c = sqlite_connection.cursor()
-
-#Lag tabell
-#c.execute('CREATE TABLE webside (date text, url text, hash text)')
-
 for url in sites:
  #Finn gammel hash til siden
  query_oldhash = "SELECT hash FROM webside WHERE url='" + url + "' LIMIT 1"
@@ -66,7 +60,14 @@ for url in sites:
 #Commit alle endringer til databasen
 sqlite_connection.commit()
 
+sqlite_connection.close()
+
+##Testseksjon - skriptet er egentlig ferdig med for å teste har vi ting liggende her
+
 print("\n\nLooper nå gjennom og skriver innholdet ut fra databasen for å teste:")
+
+sqlite_connection = sqlite3.connect(db_navn)
+c = sqlite_connection.cursor()
 
 for row in c.execute('SELECT * FROM webside'):
 	print(row)
