@@ -45,7 +45,7 @@ for url in sites:
  #Dersom gammel hash eksisterer så sjekker vi mot ny
  if old_hash:
   print("Gammel hash for:", url, "funnet.")
-  print("Query for å hente gammel hash er:", query_oldhash)
+  print("Query for aa hente gammel hash er:", query_oldhash)
   old_hash = c.execute(query_oldhash).fetchall()
  
   print("Gammel hash er ", old_hash[0][0])
@@ -70,7 +70,7 @@ sqlite_connection.close()
 
 ##Testseksjon - skriptet er egentlig ferdig med for å teste har vi ting liggende her
 
-print("\n\nLooper nå gjennom og skriver innholdet ut fra databasen for å teste:")
+print("\n\nLooper naa gjennom og skriver innholdet ut fra databasen for aa teste:")
 
 sqlite_connection = sqlite3.connect(db_navn)
 c = sqlite_connection.cursor()
