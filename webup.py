@@ -7,7 +7,7 @@ import sqlite3
 #Vi trenger også dato og klokkeslett
 import datetime
 #For å sjekke om fil eksisterer
-import os
+import os, inspect
 
 def hash(url_hash):
 	response = urllib.request.urlopen(url_hash)
@@ -20,9 +20,15 @@ sites = ['http://www.mareano.no/nyheter/nyheter-2018',
 'http://www.npd.no','http://www.kystverket.no/Maritime-tjenester/Meldings--og-informasjonstjenester/AIS/','https://www.ogauthority.co.uk/data-centre/data-downloads-and-publications/seismic-data/']
 
 #Åpne connection til sqlite3.
-db_navn = "site_fingerprints.db"
+#Først finn stien til skripttet og der databasen skal legges
+sti_til_db = str(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
 
-#Vi sletter databasefilen om den eksisterer
+#Print for å teste
+#print(sti_til_db)
+db_navn = sti_til_db + "site_fingerprints.db"
+#print ("Navn på db er " + str(db_navn))
+
+#Opprett forbindelse til database og opprett tabell om den ikke finnes fra før
 sqlite_connection = sqlite3.connect(db_navn)
 c = sqlite_connection.cursor()
 c.execute('CREATE TABLE IF NOT EXISTS webside (date text, url text, hash text)')
