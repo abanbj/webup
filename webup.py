@@ -38,35 +38,51 @@ dato_og_tid_naa = datetime.datetime.now()
 
 for url in sites:
  #Finn gammel hash til siden
+ sqlite_connection = sqlite3.connect(db_navn)
+ c = sqlite_connection.cursor()
  query_oldhash = "SELECT hash FROM webside WHERE url='" + url + "' LIMIT 1"
  old_hash = c.execute(query_oldhash).fetchall()
  #print(old_hash)
+ sqlite_connection.commit()
+ sqlite_connection.close()
 
  #Dersom gammel hash eksisterer så sjekker vi mot ny
  if old_hash:
+  sqlite_connection = sqlite3.connect(db_navn)
+  c = sqlite_connection.cursor()
   print("Gammel hash for:", url, "funnet.")
   print("Query for aa hente gammel hash er:", query_oldhash)
   old_hash = c.execute(query_oldhash).fetchall()
+  sqlite_connection.commit()
+  sqlite_connection.close()
  
   print("Gammel hash er ", old_hash[0][0])
   #print("Her er old hash ")
   #Dette skal skje om hashen er ULIK
   if not (old_hash[0][0] == hash(url)):
  
+   sqlite_connection = sqlite3.connect(db_navn)
+   c = sqlite_connection.cursor()
    todo = [dato_og_tid_naa, url, hash(url)]
    c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
    print("La inn hash fra ", url)
+   sqlite_connection.commit()
+   sqlite_connection.close()
 
  else:
   print("Gammel hash ikke funnet.")
+  sqlite_connection = sqlite3.connect(db_navn)
+  c = sqlite_connection.cursor()
   todo = [dato_og_tid_naa, url, hash(url)]
   c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
   print("La inn hash fra ", url)
+  sqlite_connection.commit()
+  sqlite_connection.close()
 
 #Commit alle endringer til databasen
-sqlite_connection.commit()
+#sqlite_connection.commit()
 
-sqlite_connection.close()
+#sqlite_connection.close()
 
 ##Testseksjon - skriptet er egentlig ferdig med for å teste har vi ting liggende her
 
