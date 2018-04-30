@@ -68,6 +68,35 @@ for url in sites:
    print("La inn hash fra ", url)
    sqlite_connection.commit()
    sqlite_connection.close()
+   
+   #Send epost om at ny hash ble funnet
+   
+   # Import smtplib for the actual sending function
+   import smtplib
+
+   # Import the email modules we'll need
+   from email.mime.text import MIMEText
+
+   # Open a plain text file for reading.  For this example, assume that
+   # the text file contains only ASCII characters.
+   #textfile="test.txt"
+   #with open(textfile) as fp:
+   # Create a text/plain message
+   eposttekst = url + " har blitt oppdatert.\n\nNy hash er " + hash(url)
+   msg = MIMEText(eposttekst)
+
+ 
+   # me == the sender's email address
+   # you == the recipient's email address
+   msg['Subject'] = url + " er oppdatert"
+   msg['From'] = "server@mail.mail"
+   msg['To'] = "mail@mail.mail"
+   # Send the message via our own SMTP server.
+   s = smtplib.SMTP('localhost')
+   s.send_message(msg)
+   s.quit()
+
+
 
  else:
   print("Gammel hash ikke funnet.")
