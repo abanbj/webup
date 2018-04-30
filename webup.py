@@ -40,7 +40,7 @@ for url in sites:
  #Finn gammel hash til siden
  sqlite_connection = sqlite3.connect(db_navn)
  c = sqlite_connection.cursor()
- query_oldhash = "SELECT hash FROM webside WHERE url='" + url + "' LIMIT 1"
+ query_oldhash = "SELECT hash FROM webside WHERE url='" + url + "' ORDER BY date DESC LIMIT 1" 
  old_hash = c.execute(query_oldhash).fetchall()
  #print(old_hash)
  sqlite_connection.commit()
