@@ -125,5 +125,3 @@ for row in c.execute('SELECT * FROM webside'):
 
 #Lukk sqlite connection
 sqlite_connection.close()
-
-#Vi kan komponere og sende epost direkte fra Python?!
