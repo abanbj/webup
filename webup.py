@@ -82,7 +82,7 @@ for url in sites:
    #textfile="test.txt"
    #with open(textfile) as fp:
    # Create a text/plain message
-   eposttekst = url + " har blitt oppdatert.\n\nNy hash er " + hash(url)
+   eposttekst = url + " har blitt oppdatert.\n\nNy/gammel hash er\n" + hash(url) + "\n" + old_hash[0][0]
    msg = MIMEText(eposttekst)
 
  
