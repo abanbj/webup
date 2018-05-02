@@ -16,8 +16,12 @@ def hash(url_hash):
 	return m
 
 #Sites som skal fingerprintes. MÅ ha med http(s):// ellers klager python
-sites = ['http://www.mareano.no/nyheter/nyheter-2018',
-'http://www.npd.no','http://www.kystverket.no/Maritime-tjenester/Meldings--og-informasjonstjenester/AIS/','https://www.ogauthority.co.uk/data-centre/data-downloads-and-publications/seismic-data/']
+sites = [
+'http://www.mareano.no/nyheter/nyheter-2018',
+'http://www.npd.no',
+'http://www.kystverket.no/Maritime-tjenester/Meldings--og-informasjonstjenester/AIS/',
+'https://www.ogauthority.co.uk/data-centre/data-downloads-and-publications/seismic-data/'
+]
 
 #Åpne connection til sqlite3.
 #Først finn stien til skripttet og der databasen skal legges
