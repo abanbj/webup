@@ -37,6 +37,8 @@ c.execute('CREATE TABLE IF NOT EXISTS webside (date text, url text, hash text)')
 dato_og_tid_naa = datetime.datetime.now()
 
 for url in sites:
+ #Finn ny hash til websiden. Denne må vi uansett ha
+ new_hash = hash(url)
  #Finn gammel hash til siden
  sqlite_connection = sqlite3.connect(db_navn)
  c = sqlite_connection.cursor()
@@ -59,13 +61,14 @@ for url in sites:
   print("Gammel hash er ", old_hash[0][0])
   #print("Her er old hash ")
   #Dette skal skje om hashen er ULIK
-  if not (old_hash[0][0] == hash(url)):
+  if not (old_hash[0][0] == new_hash):
  
    sqlite_connection = sqlite3.connect(db_navn)
    c = sqlite_connection.cursor()
-   todo = [dato_og_tid_naa, url, hash(url)]
+   todo = [dato_og_tid_naa, url, new_hash]
    c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
    print("La inn hash fra ", url)
+   print("Ny hash er   :" + new_hash)
    sqlite_connection.commit()
    sqlite_connection.close()
    
@@ -102,9 +105,10 @@ for url in sites:
   print("Gammel hash ikke funnet.")
   sqlite_connection = sqlite3.connect(db_navn)
   c = sqlite_connection.cursor()
-  todo = [dato_og_tid_naa, url, hash(url)]
+  todo = [dato_og_tid_naa, url, new_hash]
   c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
   print("La inn hash fra ", url)
+  print("Ny hash er   :" + new_hash)
   sqlite_connection.commit()
   sqlite_connection.close()
 
