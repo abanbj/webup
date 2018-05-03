@@ -20,7 +20,8 @@ sites = [
 'http://www.mareano.no/nyheter/nyheter-2018',
 'http://www.npd.no',
 'http://www.kystverket.no/Maritime-tjenester/Meldings--og-informasjonstjenester/AIS/',
-'https://www.ogauthority.co.uk/data-centre/data-downloads-and-publications/seismic-data/'
+'https://www.ogauthority.co.uk/data-centre/data-downloads-and-publications/seismic-data/',
+'http://www.miljodirektoratet.no/no/Horinger/Petroleum/'
 ]
 
 #Åpne connection til sqlite3.
