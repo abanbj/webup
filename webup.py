@@ -39,7 +39,7 @@ c = sqlite_connection.cursor()
 c.execute('CREATE TABLE IF NOT EXISTS webside (date text, url text, hash text)')
 
 #sqlite_connection = sqlite3.connect(db_navn)
-dato_og_tid_naa = datetime.datetime.now()
+dato_og_tid_naa = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 for url in sites:
     #Finn ny hash til websiden. Denne må vi uansett ha
