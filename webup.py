@@ -47,12 +47,18 @@ dato_og_tid_naa = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 for url in sites:
     #Finn ny hash til websiden. Denne må vi uansett ha
     new_hash = hash(url)
+    #For debudding. Outputter korrekt hash og html
+    print("Ny hash er: " + str(new_hash[0]) + "\n")
+    print("Ny html er: " + str(new_hash[1]) + "\n") 
     #Finn gammel hash til siden
     sqlite_connection = sqlite3.connect(db_navn)
     c = sqlite_connection.cursor()
     query_oldhash = "SELECT hash FROM webside WHERE url='" + url + "' ORDER BY date DESC LIMIT 1"
+    query_oldhtml = "SELECT html FROM webside WHERE url='" + url + "' ORDER BY date DESC LIMIT 1"
     old_hash = c.execute(query_oldhash).fetchall()
-    #print(old_hash)
+    old_html = c.execute(query_oldhtml).fetchall()
+    print("Old hash ERER: " + old_hash[0][0])
+    print("Old html ERER: " + old_html[0][0])
     sqlite_connection.commit()
     sqlite_connection.close()
 
@@ -69,14 +75,19 @@ for url in sites:
         print("Gammel hash er ", old_hash[0][0])
         #print("Her er old hash ")
         #Dette skal skje om hashen er ULIK
-        if not (old_hash[0][0] == new_hash):
+        if not (old_hash[0][0] == new_hash[0]):
 
             sqlite_connection = sqlite3.connect(db_navn)
             c = sqlite_connection.cursor()
-            todo = [dato_og_tid_naa, url, new_hash[0], new_hash[1]]
+            todo = [dato_og_tid_naa, url, str(new_hash[0]), str(new_hash[1])]
             c.execute("INSERT INTO webside VALUES (?,?,?,?)", todo)
             print("La inn hash fra ", url)
             print("Ny hash er   :" + new_hash[0])
+            #Print diff
+            diff = difflib.unified_diff(str(new_hash[1]), str(old_html[0][0]), lineterm='')
+            print("Diff er: ")
+            for line in diff:
+             print(line)
             sqlite_connection.commit()
             sqlite_connection.close()
 
@@ -109,11 +120,12 @@ for url in sites:
 
 
 
+    #URLen har ingen tidligere rader - ny side
     else:
         print("Gammel hash ikke funnet.")
         sqlite_connection = sqlite3.connect(db_navn)
         c = sqlite_connection.cursor()
-        todo = [dato_og_tid_naa, url, new_hash[0], new_hash[1]]
+        todo = [dato_og_tid_naa, url, str(new_hash[0]), str(new_hash[1])]
         c.execute("INSERT INTO webside VALUES (?,?,?,?)", todo)
         print("La inn hash fra ", url)
         print("Ny hash er   :" + new_hash[0])
