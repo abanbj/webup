@@ -9,11 +9,12 @@ import datetime
 #For å sjekke om fil eksisterer
 import os
 
+#Funksjon som beregner hash ('m') og selve html-innholdet ('data') 
 def hash(url_hash):
     response = urllib.request.urlopen(url_hash)
     data = response.read()
     m = hashlib.sha256(data).hexdigest()
-    return m
+    return (m, data)
 
 #Sites som skal fingerprintes. MÅ ha med http(s):// ellers klager python
 sites = [
@@ -36,7 +37,7 @@ db_navn = sti_til_db + "/site_fingerprints.db"
 #Opprett forbindelse til database og opprett tabell om den ikke finnes fra før
 sqlite_connection = sqlite3.connect(db_navn)
 c = sqlite_connection.cursor()
-c.execute('CREATE TABLE IF NOT EXISTS webside (date text, url text, hash text)')
+c.execute('CREATE TABLE IF NOT EXISTS webside (date text, url text, hash text, html text)')
 
 #sqlite_connection = sqlite3.connect(db_navn)
 dato_og_tid_naa = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -70,10 +71,10 @@ for url in sites:
 
             sqlite_connection = sqlite3.connect(db_navn)
             c = sqlite_connection.cursor()
-            todo = [dato_og_tid_naa, url, new_hash]
-            c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
+            todo = [dato_og_tid_naa, url, new_hash[0], new_hash[1]]
+            c.execute("INSERT INTO webside VALUES (?,?,?,?)", todo)
             print("La inn hash fra ", url)
-            print("Ny hash er   :" + new_hash)
+            print("Ny hash er   :" + new_hash[0])
             sqlite_connection.commit()
             sqlite_connection.close()
 
@@ -110,10 +111,10 @@ for url in sites:
         print("Gammel hash ikke funnet.")
         sqlite_connection = sqlite3.connect(db_navn)
         c = sqlite_connection.cursor()
-        todo = [dato_og_tid_naa, url, new_hash]
-        c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
+        todo = [dato_og_tid_naa, url, new_hash[0], new_hash[1]]
+        c.execute("INSERT INTO webside VALUES (?,?,?,?)", todo)
         print("La inn hash fra ", url)
-        print("Ny hash er   :" + new_hash)
+        print("Ny hash er   :" + new_hash[0])
         sqlite_connection.commit()
         sqlite_connection.close()
 
@@ -129,7 +130,7 @@ print("\n\nLooper naa gjennom og skriver innholdet ut fra databasen for aa teste
 sqlite_connection = sqlite3.connect(db_navn)
 c = sqlite_connection.cursor()
 
-for row in c.execute('SELECT * FROM webside'):
+for row in c.execute('SELECT date, url, hash, LENGTH(html) FROM webside'):
     print(row)
 
 #Lukk sqlite connection
