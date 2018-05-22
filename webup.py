@@ -8,12 +8,14 @@ import sqlite3
 import datetime
 #For å sjekke om fil eksisterer
 import os
+#Beregne diffs
+import difflib
 
 #Funksjon som beregner hash ('hash') og selve html-innholdet ('htmldata') 
 def hash(url_hash):
     response = urllib.request.urlopen(url_hash)
     htmldata = response.read()
-    hash = hashlib.sha256(data).hexdigest()
+    hash = hashlib.sha256(htmldata).hexdigest()
     return (hash, htmldata)
 
 #Sites som skal fingerprintes. MÅ ha med http(s):// ellers klager python
