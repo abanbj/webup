@@ -9,12 +9,12 @@ import datetime
 #For å sjekke om fil eksisterer
 import os
 
-#Funksjon som beregner hash ('m') og selve html-innholdet ('data') 
+#Funksjon som beregner hash ('hash') og selve html-innholdet ('htmldata') 
 def hash(url_hash):
     response = urllib.request.urlopen(url_hash)
-    data = response.read()
-    m = hashlib.sha256(data).hexdigest()
-    return (m, data)
+    htmldata = response.read()
+    hash = hashlib.sha256(data).hexdigest()
+    return (hash, htmldata)
 
 #Sites som skal fingerprintes. MÅ ha med http(s):// ellers klager python
 sites = [
