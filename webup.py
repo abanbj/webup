@@ -42,6 +42,8 @@ c.execute('CREATE TABLE IF NOT EXISTS webside (date text, url text, hash text)')
 dato_og_tid_naa = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 for url in sites:
+    #Skriv ut hvilken url som blir behandlet
+    print("Jobber med URL: " + url)
     #Finn ny hash til websiden. Denne må vi uansett ha
     new_hash = hash(url)
     #Finn gammel hash til siden
@@ -57,13 +59,13 @@ for url in sites:
     if old_hash:
         sqlite_connection = sqlite3.connect(db_navn)
         c = sqlite_connection.cursor()
-        print("Gammel hash for:", url, "funnet.")
-        print("Query for aa hente gammel hash er:", query_oldhash)
+        print("Gammel hash funnet.")
+        print("Query for aa hente gammel hash:", query_oldhash)
         old_hash = c.execute(query_oldhash).fetchall()
         sqlite_connection.commit()
         sqlite_connection.close()
 
-        print("Gammel hash er ", old_hash[0][0])
+        print("Gammel hash er: ", old_hash[0][0])
         #print("Her er old hash ")
         #Dette skal skje om hashen er ULIK
         if not (old_hash[0][0] == new_hash):
@@ -72,8 +74,7 @@ for url in sites:
             c = sqlite_connection.cursor()
             todo = [dato_og_tid_naa, url, new_hash]
             c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
-            print("La inn hash fra ", url)
-            print("Ny hash er   :" + new_hash)
+            print("Ny hash er: " + new_hash, "\n")
             sqlite_connection.commit()
             sqlite_connection.close()
 
@@ -105,6 +106,8 @@ for url in sites:
             s.quit()
 
 
+        else:
+            print("Ikke oppdatert - gammel hash beholdes!\n")
 
     else:
         print("Gammel hash ikke funnet.")
@@ -112,8 +115,7 @@ for url in sites:
         c = sqlite_connection.cursor()
         todo = [dato_og_tid_naa, url, new_hash]
         c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
-        print("La inn hash fra ", url)
-        print("Ny hash er   :" + new_hash)
+        print("Første hash for " + url + " er " + new_hash + "\n")
         sqlite_connection.commit()
         sqlite_connection.close()
 
