@@ -67,6 +67,7 @@ for url in sites:
 
         print("Gammel hash er: ", old_hash[0][0])
         #print("Her er old hash ")
+
         #Dette skal skje om hashen er ULIK
         if not (old_hash[0][0] == new_hash):
 
