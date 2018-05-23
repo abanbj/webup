@@ -75,7 +75,7 @@ for url in sites:
             c = sqlite_connection.cursor()
             todo = [dato_og_tid_naa, url, new_hash]
             c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
-            print("Ny hash er: " + new_hash, "\n")
+            print("Oppdatert - ny hash er: " + new_hash, "\n")
             sqlite_connection.commit()
             sqlite_connection.close()
 
