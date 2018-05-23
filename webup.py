@@ -43,7 +43,7 @@ dato_og_tid_naa = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 for url in sites:
     #Skriv ut hvilken url som blir behandlet
-    print("Jobber med URL: " + url)
+    print("\033[36mJobber med URL: " + url + "\033[0;37;40m")
     #Finn ny hash til websiden. Denne må vi uansett ha
     new_hash = hash(url)
     #Finn gammel hash til siden
@@ -75,7 +75,7 @@ for url in sites:
             c = sqlite_connection.cursor()
             todo = [dato_og_tid_naa, url, new_hash]
             c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
-            print("Oppdatert - ny hash er: " + new_hash, "\n")
+            print("\033[32mOppdatert - ny hash er: " + new_hash, "\033[0;37;40m\n")
             sqlite_connection.commit()
             sqlite_connection.close()
 
@@ -108,7 +108,7 @@ for url in sites:
 
 
         else:
-            print("Ikke oppdatert - gammel hash beholdes!\n")
+            print("\033[31mIkke oppdatert - gammel hash beholdes!\033[0;37;40m\n")
 
     else:
         print("Gammel hash ikke funnet.")
