@@ -116,7 +116,7 @@ for url in sites:
         c = sqlite_connection.cursor()
         todo = [dato_og_tid_naa, url, new_hash]
         c.execute("INSERT INTO webside VALUES (?,?,?)", todo)
-        print("Første hash for " + url + " er " + new_hash + "\n")
+        print("\033[32mFørste hash for " + url + " er " + new_hash + "\033[0;37;40m\n")
         sqlite_connection.commit()
         sqlite_connection.close()
 
