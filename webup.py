@@ -9,6 +9,7 @@ import datetime
 #For å sjekke om fil eksisterer
 import os
 
+#Funksjon som beregner og returnerer hash av websiden
 def hash(url_hash):
     response = urllib.request.urlopen(url_hash)
     data = response.read()
