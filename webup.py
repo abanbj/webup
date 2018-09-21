@@ -10,6 +10,7 @@ import datetime
 import os
 
 #Funksjon som beregner og returnerer hash av websiden
+#Hashen regnes ut i fra HTML fra URL
 def hash(url_hash):
     response = urllib.request.urlopen(url_hash)
     data = response.read()
@@ -29,7 +30,7 @@ sites = [
 #Først finn stien til skripttet og der databasen skal legges
 sti_til_db = os.path.dirname(os.path.abspath(__file__))
 
-#Print for å teste
+#Print sti for å teste
 #print(sti_til_db)
 db_navn = sti_til_db + "/site_fingerprints.db"
 #print ("Navn paa db er " + str(db_navn))
