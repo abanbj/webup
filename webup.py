@@ -1,4 +1,5 @@
 #webup - en liten utility for å sjekke om en webside har blitt oppdatert.
+#Kjøres jevnlig.
 
 #Import bib for å laste ned ting
 import urllib.request
