@@ -1,3 +1,5 @@
+#webup - en liten utility for å sjekke om en webside har blitt oppdatert.
+
 #Import bib for å laste ned ting
 import urllib.request
 #Import bib for å kalkulere hash
